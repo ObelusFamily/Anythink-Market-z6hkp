@@ -6,15 +6,15 @@ var Item = mongoose.model("Item");
 router.get("/", function (req, res, next) {
   let titlee = req.query.title;
   if (titlee !== undefined) {
-    Item.find({ title: titlee })
-      .then(function (titles) {
-        return res.json({ title: titles });
+    Item.find({ title: { $search: titlee } })
+      .then(() => {
+        return res.json();
       })
       .catch(next);
   } else {
     Item.find()
-      .then(function (titles) {
-        return res.json({ title: titles });
+      .then(() => {
+        return res.json();
       })
       .catch(next);
   }
