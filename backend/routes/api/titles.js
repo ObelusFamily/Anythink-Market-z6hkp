@@ -6,6 +6,7 @@ var Item = mongoose.model("Item");
 router.get("/", function (req, res, next) {
   Item.findOne({ title: req.query.title })
     .then((titles) => {
+      console.log(titles);
       return res.json({ title: titles });
     })
     .catch(next);
