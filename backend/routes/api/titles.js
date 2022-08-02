@@ -4,20 +4,11 @@ var Item = mongoose.model("Item");
 
 // return a list of titles
 router.get("/", function (req, res, next) {
-  let titlee = req.query.title;
-  if (titlee !== undefined) {
-    Item.find({ title: { $search: titlee } })
-      .then(() => {
-        return res.json();
-      })
-      .catch(next);
-  } else {
-    Item.find()
-      .then(() => {
-        return res.json();
-      })
-      .catch(next);
-  }
+  Item.findOne({ title: req.query.title })
+    .then((titles) => {
+      return res.json({ title: titles });
+    })
+    .catch(next);
 });
 
 module.exports = router;
